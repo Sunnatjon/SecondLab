@@ -1,10 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
 public class Line extends JComponent implements MainInterface{
     private int x,y;
+    Iterator<Line> iterL;
     public Line(int x, int y)
     {
         this.x = x;
@@ -46,6 +48,22 @@ public class Line extends JComponent implements MainInterface{
             sampleL.setY(sampleL.getY());
             frame.add(sampleL);
         }
+    }
+    public int Remove(JFrame frame){
+        int luck = 1;
+        iterL = MainWindow.getLineList().iterator();
+        if (iterL.hasNext())
+        {
+            frame.remove(MainWindow.getLineList().get(0));
+            MainWindow.getLineList().remove(0);
+            for (int i = 0; i < MainWindow.getLineList().size(); i++) {
+                Line l = MainWindow.getLineList().get(i);
+                frame.add(l);
+            }
+        }else {
+            luck = 0;
+        }
+        return luck;
     }
 
     public void setX(int x) {

@@ -13,6 +13,7 @@ public class MainWindow {
     private static ArrayList<Circle> CircleList = new ArrayList<>();
     private static ArrayList<RectanglePro> RectList =  new ArrayList<>();
     private static ArrayList<Line> LineList =  new ArrayList<>();
+    private static int LUCK = 0;
     public static void main(String[] args)
     {
         Random rand = new Random();
@@ -30,11 +31,48 @@ public class MainWindow {
         frame.add(panel,BorderLayout.NORTH);
         JButton CreateButton = new JButton("Create");
         JButton MoveTo = new JButton("MoveTo");
+        JButton DeleteTheLast = new JButton("Delete");
         panel.add(CreateButton);
         panel.add(MoveTo);
+        panel.add(DeleteTheLast);
         JComboBox shapeBox = new JComboBox(BOX_COLLECTION);
         shapeBox.setSelectedItem(0);
         panel.add(shapeBox);
+
+        class DeleteButtonListener implements ActionListener
+        {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int Ctrue = 1,Rtrue = 1,Ltrue = 1;
+                switch (LUCK) {
+                    case 0:
+                        Ctrue = createCircle.Remove(frame);
+                        break;
+                    case 1:
+                        Ltrue = createLine.Remove(frame);
+                        break;
+                    case 2:
+                        Rtrue = createRec.Remove(frame);
+                        break;
+                    default:
+                        createLine.Remove(frame);
+                        break;
+                }
+                if (Ctrue == 0){
+                    LUCK = 1;
+                }else if (Ltrue == 0) {
+                    LUCK = 2;
+                }else if (Rtrue == 0){
+                    LUCK = 0;
+                }else {
+                    LUCK = rand.nextInt(2);
+                }
+                frame.revalidate();
+                frame.repaint();
+            }
+        }
+        ActionListener deleteBtnListener = new DeleteButtonListener();
+        DeleteTheLast.addActionListener(deleteBtnListener);
 
         class RectangleButtonListener implements ActionListener
         {

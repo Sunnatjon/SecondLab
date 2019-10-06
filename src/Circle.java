@@ -1,10 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
 public class Circle extends JComponent implements MainInterface{
     private int x,y;
+    private Iterator<Circle> iterC;
     public Circle(int x, int y)
     {
         this.x = x;
@@ -48,6 +50,21 @@ public class Circle extends JComponent implements MainInterface{
         }
     }
 
+    public int Remove(JFrame frame){
+        int luck = 1;
+        iterC = MainWindow.getCircleList().iterator();
+        if (iterC.hasNext()){
+            frame.remove(MainWindow.getCircleList().get(0));
+            MainWindow.getCircleList().remove(0);
+            for (int i = 0; i < MainWindow.getCircleList().size(); i++) {
+                Circle c = MainWindow.getCircleList().get(i);
+                frame.add(c);
+            }
+        }else {
+            luck = 0;
+        }
+        return luck;
+    }
     public int getX() {
         return x;
     }

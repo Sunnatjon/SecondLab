@@ -1,10 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
 public class RectanglePro extends JComponent implements MainInterface{
         private int x,y;
+        Iterator<RectanglePro> iterR;
         public RectanglePro(int x, int y)
         {
             this.x = x;
@@ -47,6 +49,21 @@ public class RectanglePro extends JComponent implements MainInterface{
             sampleR.setY(sampleR.getY());
             frame.add(sampleR);
         }
+    }
+    public int Remove(JFrame frame){
+        int luck = 1;
+        iterR = MainWindow.getRecList().iterator();
+        if (iterR.hasNext()){
+            frame.remove(MainWindow.getRecList().get(0));
+            MainWindow.getRecList().remove(0);
+            for (int i = 0; i < MainWindow.getRecList().size(); i++) {
+                RectanglePro r = MainWindow.getRecList().get(i);
+                frame.add(r);
+            }
+        }else {
+            luck = 0;
+        }
+        return luck;
     }
     @Override
     public int getY() {
