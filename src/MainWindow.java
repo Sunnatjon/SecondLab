@@ -60,12 +60,12 @@ public class MainWindow {
                 }
                 if (Ctrue == 0){
                     LUCK = 1;
-                }else if (Ltrue == 0) {
+                }
+                if (Ltrue == 0){
                     LUCK = 2;
-                }else if (Rtrue == 0){
+                }
+                if (Rtrue == 0){
                     LUCK = 0;
-                }else {
-                    LUCK = rand.nextInt(2);
                 }
                 frame.revalidate();
                 frame.repaint();
