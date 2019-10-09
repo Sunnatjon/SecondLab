@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
-public class Line extends JComponent implements MainInterface{
-    private int x,y;
+public class Line extends JComponent{
+    private int x,y,w = 60,h = 60;
     Iterator<Line> iterL;
     public Line(int x, int y)
     {
@@ -19,9 +19,9 @@ public class Line extends JComponent implements MainInterface{
         super.paintComponent(g);
         Color c = Color.ORANGE;
         g.setColor(c);
-        g.drawLine(x, y, x+60, y+60);
+        g.drawLine(x, y, x+w, y+h);
     }
-    @Override
+
     public void Create(JFrame frame, Random rand)
     {
         ArrayList<Line>LineList = MainWindow.getLineList();
@@ -31,23 +31,19 @@ public class Line extends JComponent implements MainInterface{
         frame.add(printLine);
         LineList.add(printLine);
     }
-    public void MoveTo(JFrame frame)
+    public void MoveTo(JFrame frame,int index)
     {
         int dx = 20;
-        int l = MainWindow.getLineList().size();
-        for (int i = 0; i < l; i++)
-        {
-            Line sampleL = MainWindow.getLineList().get(i);
-            if (sampleL.getX() >= 580){
-                sampleL.setX(sampleL.getX());
-            }
-            else {
-                System.out.println(sampleL.getX());
-                sampleL.setX(sampleL.getX()+dx);
-            }
-            sampleL.setY(sampleL.getY());
-            frame.add(sampleL);
+        Line sampleL = MainWindow.getLineList().get(index);
+        if (sampleL.getX() >= 580){
+            sampleL.setX(sampleL.getX());
         }
+        else {
+            System.out.println(sampleL.getX());
+            sampleL.setX(sampleL.getX()+dx);
+        }
+        sampleL.setY(sampleL.getY());
+        frame.add(sampleL);
     }
     public int Remove(JFrame frame){
         int luck = 1;
@@ -64,6 +60,24 @@ public class Line extends JComponent implements MainInterface{
             luck = 0;
         }
         return luck;
+    }
+    public void ChangeWidth(JFrame frame,int width, int index){
+        Line l  = MainWindow.getLineList().get(index);
+        l.setW(width);
+        frame.add(l);
+    }
+    public void ChangeHeight(JFrame frame,int height, int index){
+        Circle c  = MainWindow.getCircleList().get(index);
+        c.setH(height);
+        frame.add(c);
+    }
+
+    public void setW(int w) {
+        this.w = w;
+    }
+
+    public void setH(int h) {
+        this.h = h;
     }
 
     public void setX(int x) {

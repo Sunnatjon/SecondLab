@@ -14,6 +14,8 @@ public class MainWindow {
     private static ArrayList<RectanglePro> RectList =  new ArrayList<>();
     private static ArrayList<Line> LineList =  new ArrayList<>();
     private static int LUCK = 0;
+    private static String text;
+    private static ArrayList<String> textBox = new ArrayList<>();
     public static void main(String[] args)
     {
         Random rand = new Random();
@@ -36,8 +38,47 @@ public class MainWindow {
         panel.add(MoveTo);
         panel.add(DeleteTheLast);
         JComboBox shapeBox = new JComboBox(BOX_COLLECTION);
+        JComboBox Change = new JComboBox();
+        panel.add(Change);
         shapeBox.setSelectedItem(0);
         panel.add(shapeBox);
+
+        class ChangeBtnListener implements ActionListener{
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                JComboBox cb = (JComboBox)event.getSource();
+                String msg = (String)cb.getSelectedItem();
+                for (int i = 0; i < textBox.size(); i++){
+                    if (msg.equals(i + " Circle")){
+                        String indicator = "Circle";
+                        Configurations config = new Configurations(frame,i,indicator);
+                        //CircleList.get(i).MoveTo(frame,i);
+                        frame.revalidate();
+                        frame.repaint();
+                    }
+                }
+                for (int i = 0; i < textBox.size(); i++){
+                    if (msg.equals(i + " Rectangle")){
+                        String indicator = "Rectangle";
+                        Configurations config = new Configurations(frame,i,indicator);
+                        //RectList.get(i).MoveTo(frame,i);
+                        frame.revalidate();
+                        frame.repaint();
+                    }
+                }
+                for (int i = 0; i < textBox.size(); i++){
+                    if (msg.equals(i + " Line")){
+                        String indicator = "Line";
+                        Configurations config = new Configurations(frame,i,indicator);
+                        //LineList.get(i).MoveTo(frame,i);
+                        frame.revalidate();
+                        frame.repaint();
+                    }
+                }
+            }
+        }
+        ActionListener change = new ChangeBtnListener();
+        Change.addActionListener(change);
 
         class DeleteButtonListener implements ActionListener
         {
@@ -78,6 +119,7 @@ public class MainWindow {
         {
             public void actionPerformed(ActionEvent event)
             {
+                Change.addItem(textBox.get(textBox.size()-1));
                 frame.revalidate();
                 frame.repaint();
             }
@@ -99,14 +141,17 @@ public class MainWindow {
                         case "Circle":
                             System.out.println("Circle");
                             createCircle.Create(frame,rand);
+                            textBox.add((CircleList.size()-1) + " Circle");
                             break;
                         case "Rectangle":
                             System.out.println("Rectangle");
                             createRec.Create(frame,rand);
+                            textBox.add((RectList.size()-1) + " Rectangle");
                             break;
                         case "Line":
                             System.out.println("Line");
                             createLine.Create(frame,rand);
+                            textBox.add((LineList.size()-1) + " Line");
                             break;
                         default:
                             System.out.println("Something");
@@ -122,9 +167,9 @@ public class MainWindow {
         {
             @Override
             public void actionPerformed(ActionEvent event) {
-                createCircle.MoveTo(frame);
-                createRec.MoveTo(frame);
-                createLine.MoveTo(frame);
+                createCircle.MoveTo(frame,0);
+                createRec.MoveTo(frame,0);
+                createLine.MoveTo(frame,0);
                 frame.revalidate();
                 frame.repaint();
             }

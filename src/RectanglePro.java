@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
-public class RectanglePro extends JComponent implements MainInterface{
-        private int x,y;
+public class RectanglePro extends JComponent{
+        private int x,y,w = 70,h = 70;
         Iterator<RectanglePro> iterR;
         public RectanglePro(int x, int y)
         {
@@ -19,10 +19,9 @@ public class RectanglePro extends JComponent implements MainInterface{
             super.paintComponent(g);
             Color c = Color.BLACK;
             g.setColor(c);
-            g.fillRect(x, y, 70, 70);
+            g.fillRect(x, y, w, h);
         }
 
-        @Override
         public void Create(JFrame frame, Random rand)
         {
             ArrayList<RectanglePro>RectList = MainWindow.getRecList();
@@ -32,23 +31,19 @@ public class RectanglePro extends JComponent implements MainInterface{
             frame.add(printRectangle);
             RectList.add(printRectangle);
         }
-    public void MoveTo(JFrame frame)
+    public void MoveTo(JFrame frame,int index)
     {
         int dx = 20;
-        int r = MainWindow.getRecList().size();
-        for (int i = 0; i < r; i++)
-        {
-            RectanglePro sampleR = MainWindow.getRecList().get(i);
-            if (sampleR.getX() >= 580){
-                sampleR.setX(sampleR.getX());
-            }
-            else {
-                System.out.println(sampleR.getX());
-                sampleR.setX(sampleR.getX()+dx);
-            }
-            sampleR.setY(sampleR.getY());
-            frame.add(sampleR);
+        RectanglePro sampleR = MainWindow.getRecList().get(index);
+        if (sampleR.getX() >= 580){
+            sampleR.setX(sampleR.getX());
         }
+        else {
+            System.out.println(sampleR.getX());
+            sampleR.setX(sampleR.getX()+dx);
+        }
+        sampleR.setY(sampleR.getY());
+        frame.add(sampleR);
     }
     public int Remove(JFrame frame){
         int luck = 1;
@@ -65,6 +60,25 @@ public class RectanglePro extends JComponent implements MainInterface{
         }
         return luck;
     }
+    public void ChangeWidth(JFrame frame,int width, int index){
+        RectanglePro r  = MainWindow.getRecList().get(index);
+        r.setW(width);
+        frame.add(r);
+    }
+    public void ChangeHeight(JFrame frame,int height, int index){
+        RectanglePro r  = MainWindow.getRecList().get(index);
+        r.setH(height);
+        frame.add(r);
+    }
+
+    public void setH(int h) {
+        this.h = h;
+    }
+
+    public void setW(int w) {
+        this.w = w;
+    }
+
     @Override
     public int getY() {
         return y;
