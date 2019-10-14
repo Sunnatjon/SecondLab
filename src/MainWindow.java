@@ -3,10 +3,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
-
 import javax.swing.*;
 
 public class MainWindow {
+    private static Configurations config = new Configurations();
     private static Circle createCircle = new Circle();
     private static RectanglePro createRec = new RectanglePro();
     private static Line createLine = new Line();
@@ -14,10 +14,10 @@ public class MainWindow {
     private static ArrayList<RectanglePro> RectList =  new ArrayList<>();
     private static ArrayList<Line> LineList =  new ArrayList<>();
     private static int LUCK = 0;
-    private static String text;
     private static ArrayList<String> textBox = new ArrayList<>();
     public static void main(String[] args)
     {
+        config.setVisible(false);
         Random rand = new Random();
         final JFrame frame = new JFrame();
         final String[] BOX_COLLECTION = {"Circle","Rectangle","Line"};
@@ -51,7 +51,8 @@ public class MainWindow {
                 for (int i = 0; i < textBox.size(); i++){
                     if (msg.equals(i + " Circle")){
                         String indicator = "Circle";
-                        Configurations config = new Configurations(frame,i,indicator);
+                        config = new Configurations(frame,i,indicator,Change);
+                        config.setVisible(true);
                         //CircleList.get(i).MoveTo(frame,i);
                         frame.revalidate();
                         frame.repaint();
@@ -60,7 +61,8 @@ public class MainWindow {
                 for (int i = 0; i < textBox.size(); i++){
                     if (msg.equals(i + " Rectangle")){
                         String indicator = "Rectangle";
-                        Configurations config = new Configurations(frame,i,indicator);
+                        config = new Configurations(frame,i,indicator,Change);
+                        config.setVisible(true);
                         //RectList.get(i).MoveTo(frame,i);
                         frame.revalidate();
                         frame.repaint();
@@ -69,7 +71,8 @@ public class MainWindow {
                 for (int i = 0; i < textBox.size(); i++){
                     if (msg.equals(i + " Line")){
                         String indicator = "Line";
-                        Configurations config = new Configurations(frame,i,indicator);
+                        config = new Configurations(frame,i,indicator,Change);
+                        config.setVisible(true);
                         //LineList.get(i).MoveTo(frame,i);
                         frame.revalidate();
                         frame.repaint();
@@ -181,10 +184,20 @@ public class MainWindow {
     public static ArrayList<Circle> getCircleList(){
         return CircleList;
     }
-    public static ArrayList<RectanglePro> getRecList(){
+    public static void setCircleList(ArrayList<Circle> circleList) {
+        CircleList = circleList;
+    }
+    public static ArrayList<RectanglePro> getRectList() {
         return RectList;
     }
+    public static void setRectList(ArrayList<RectanglePro> rectList) {
+        RectList = rectList;
+    }
+
     public static ArrayList<Line> getLineList(){
         return LineList;
+    }
+    public static void setLineList(ArrayList<Line> lineList) {
+        LineList = lineList;
     }
 }

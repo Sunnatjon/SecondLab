@@ -5,19 +5,22 @@ import java.util.Iterator;
 import java.util.Random;
 
 public class Circle extends JComponent {
-    private int x,y,w = 70,h = 70;
+    private int x,y,w,h;
     private Iterator<Circle> iterC;
-    public Circle(int x, int y)
+    private Color color = Color.RED;
+    public Circle(int x, int y, int h, int w)
     {
         this.x = x;
         this.y = y;
+        this.h = h;
+        this.w = w;
     }
     public Circle(){}
     @Override
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
-        Color c = Color.RED;
+        Color c = color;
         g.setColor(c);
         g.fillOval(x, y, w, h);
     }
@@ -27,9 +30,10 @@ public class Circle extends JComponent {
         ArrayList<Circle> CircleList = MainWindow.getCircleList();
         int coordXC = rand.nextInt(400)+1;
         int coordYC = rand.nextInt(200)+1;
-        Circle printCircle = new Circle(coordXC, coordYC);
+        Circle printCircle = new Circle(coordXC, coordYC,70,70);
         frame.add(printCircle);
         CircleList.add(printCircle);
+        MainWindow.setCircleList(CircleList);
     }
     public void MoveTo(JFrame frame, int index)
     {
@@ -70,6 +74,18 @@ public class Circle extends JComponent {
         c.setH(height);
         frame.add(c);
     }
+    public void Visibility(JFrame frame,int index){
+        Circle c = MainWindow.getCircleList().get(index);
+        color = c.getColor();
+        if (color == Color.RED) {
+            color = new Color(255, 0, 0, 0);
+        }
+        else {
+            color = Color.RED;
+        }
+        c.setColor(color);
+        frame.add(c);
+    }
     public int getX() {
         return x;
     }
@@ -92,5 +108,13 @@ public class Circle extends JComponent {
 
     public void setH(int h) {
         this.h = h;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public Color getColor() {
+        return color;
     }
 }

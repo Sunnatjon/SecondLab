@@ -6,6 +6,7 @@ import java.util.Random;
 
 public class Line extends JComponent{
     private int x,y,w = 60,h = 60;
+    private Color color;
     Iterator<Line> iterL;
     public Line(int x, int y)
     {
@@ -17,7 +18,7 @@ public class Line extends JComponent{
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
-        Color c = Color.ORANGE;
+        Color c = color;
         g.setColor(c);
         g.drawLine(x, y, x+w, y+h);
     }
@@ -28,8 +29,9 @@ public class Line extends JComponent{
         int widthC = rand.nextInt(400)+1;
         int heightC = rand.nextInt(200)+1;
         Line printLine = new Line(widthC, heightC);
-        frame.add(printLine);
         LineList.add(printLine);
+        frame.add(printLine);
+        MainWindow.setLineList(LineList);
     }
     public void MoveTo(JFrame frame,int index)
     {
@@ -67,9 +69,21 @@ public class Line extends JComponent{
         frame.add(l);
     }
     public void ChangeHeight(JFrame frame,int height, int index){
-        Circle c  = MainWindow.getCircleList().get(index);
-        c.setH(height);
-        frame.add(c);
+        Line l  = MainWindow.getLineList().get(index);
+        l.setH(height);
+        frame.add(l);
+    }
+    public void Visibility(JFrame frame, int index){
+        Line l = MainWindow.getLineList().get(index);
+        color = l.getColor();
+        if (color == Color.ORANGE) {
+            color = new Color(255, 0, 0, 0);
+        }
+        else {
+            color = Color.ORANGE;
+        }
+        l.setColor(color);
+        frame.add(l);
     }
 
     public void setW(int w) {
@@ -96,5 +110,13 @@ public class Line extends JComponent{
     @Override
     public int getY() {
         return y;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public Color getColor() {
+        return color;
     }
 }

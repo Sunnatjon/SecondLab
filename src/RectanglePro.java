@@ -6,6 +6,7 @@ import java.util.Random;
 
 public class RectanglePro extends JComponent{
         private int x,y,w = 70,h = 70;
+        private Color color = Color.BLACK;
         Iterator<RectanglePro> iterR;
         public RectanglePro(int x, int y)
         {
@@ -17,24 +18,25 @@ public class RectanglePro extends JComponent{
         public void paintComponent(Graphics g)
         {
             super.paintComponent(g);
-            Color c = Color.BLACK;
+            Color c = color;
             g.setColor(c);
             g.fillRect(x, y, w, h);
         }
 
         public void Create(JFrame frame, Random rand)
         {
-            ArrayList<RectanglePro>RectList = MainWindow.getRecList();
+            ArrayList<RectanglePro>RectList = MainWindow.getRectList();
             int widthC = rand.nextInt(400)+1;
             int heightC = rand.nextInt(200)+1;
             RectanglePro printRectangle = new RectanglePro(widthC, heightC);
-            frame.add(printRectangle);
             RectList.add(printRectangle);
+            frame.add(printRectangle);
+            MainWindow.setRectList(RectList);
         }
     public void MoveTo(JFrame frame,int index)
     {
         int dx = 20;
-        RectanglePro sampleR = MainWindow.getRecList().get(index);
+        RectanglePro sampleR = MainWindow.getRectList().get(index);
         if (sampleR.getX() >= 580){
             sampleR.setX(sampleR.getX());
         }
@@ -47,12 +49,12 @@ public class RectanglePro extends JComponent{
     }
     public int Remove(JFrame frame){
         int luck = 1;
-        iterR = MainWindow.getRecList().iterator();
+        iterR = MainWindow.getRectList().iterator();
         if (iterR.hasNext()){
-            frame.remove(MainWindow.getRecList().get(0));
-            MainWindow.getRecList().remove(0);
-            for (int i = 0; i < MainWindow.getRecList().size(); i++) {
-                RectanglePro r = MainWindow.getRecList().get(i);
+            frame.remove(MainWindow.getRectList().get(0));
+            MainWindow.getRectList().remove(0);
+            for (int i = 0; i < MainWindow.getRectList().size(); i++) {
+                RectanglePro r = MainWindow.getRectList().get(i);
                 frame.add(r);
             }
         }else {
@@ -61,13 +63,25 @@ public class RectanglePro extends JComponent{
         return luck;
     }
     public void ChangeWidth(JFrame frame,int width, int index){
-        RectanglePro r  = MainWindow.getRecList().get(index);
+        RectanglePro r  = MainWindow.getRectList().get(index);
         r.setW(width);
         frame.add(r);
     }
     public void ChangeHeight(JFrame frame,int height, int index){
-        RectanglePro r  = MainWindow.getRecList().get(index);
+        RectanglePro r  = MainWindow.getRectList().get(index);
         r.setH(height);
+        frame.add(r);
+    }
+    public void Visibility(JFrame frame, int index){
+        RectanglePro r = MainWindow.getRectList().get(index);
+        color = r.getColor();
+        if (color == Color.BLACK) {
+            color = new Color(255, 0, 0, 0);
+        }
+        else {
+            color = Color.BLACK;
+        }
+        r.setColor(color);
         frame.add(r);
     }
 
@@ -95,5 +109,13 @@ public class RectanglePro extends JComponent{
 
     public void setX(int x) {
         this.x = x;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public Color getColor() {
+        return color;
     }
 }
