@@ -17,7 +17,7 @@ public class MainWindow {
     private static ArrayList<Line> LineList =  new ArrayList<>();
     private static int LUCK = 0;
     private static ArrayList<String> textBox = new ArrayList<>();
-    private static int SELECTED_INDEX;
+    private static int SELECTED_INDEX,indexC = 0,indexR = 0,indexL = 0;
     public static void main(String[] args)
     {
         config.setVisible(false);
@@ -42,7 +42,8 @@ public class MainWindow {
         panel.add(DeleteTheLast);
         JComboBox shapeBox = new JComboBox(BOX_COLLECTION);
         JComboBox Change = new JComboBox();
-        JList<String> list = new JList<>();
+        DefaultListModel<String> model = new DefaultListModel<>();
+        JList<String> list = new JList<>(model);
         panel.add(list);
         panel.add(Change);
         shapeBox.setSelectedItem(0);
@@ -134,7 +135,24 @@ public class MainWindow {
             public void actionPerformed(ActionEvent event)
             {
                 Change.addItem(textBox.get(textBox.size()-1));
-
+                switch (SELECTED_INDEX){
+                    case 0:
+                        createCircle.Create(frame,rand);
+                        model.addElement("Circle - "+ indexC);
+                        indexC++;
+                        break;
+                    case 1:
+                        createRec.Create(frame,rand);
+                        model.addElement("Rectangle - "+ indexR);
+                        indexR++;
+                        break;
+                    case 2:
+                        createLine.Create(frame,rand);
+                        model.addElement("Line - "+ indexL);
+                    default:
+                        createLine.Create(frame,rand);
+                        model.addElement("Line - "+ indexL);
+                }
                 frame.revalidate();
                 frame.repaint();
             }
@@ -150,29 +168,29 @@ public class MainWindow {
                 if (event.getSource() == shapeBox)
                 {
                     JComboBox cb = (JComboBox)event.getSource();
-                    String msg = (String)cb.getSelectedItem();
-                    int message = cb.getSelectedIndex();
-                    switch (msg)
-                    {
-                        case "Circle":
-                            System.out.println("Circle");
-                            createCircle.Create(frame,rand);
-                            textBox.add((CircleList.size()-1) + " Circle");
-                            break;
-                        case "Rectangle":
-                            System.out.println("Rectangle");
-                            createRec.Create(frame,rand);
-                            textBox.add((RectList.size()-1) + " Rectangle");
-                            break;
-                        case "Line":
-                            System.out.println("Line");
-                            createLine.Create(frame,rand);
-                            textBox.add((LineList.size()-1) + " Line");
-                            break;
-                        default:
-                            System.out.println("Something");
-                            break;
-                    }
+//                    String msg = (String)cb.getSelectedItem();
+                    SELECTED_INDEX = cb.getSelectedIndex();
+//                    switch (msg)
+//                    {
+//                        case "Circle":
+//                            System.out.println("Circle");
+//                            createCircle.Create(frame,rand);
+//                            textBox.add((CircleList.size()-1) + " Circle");
+//                            break;
+//                        case "Rectangle":
+//                            System.out.println("Rectangle");
+//                            createRec.Create(frame,rand);
+//                            textBox.add((RectList.size()-1) + " Rectangle");
+//                            break;
+//                        case "Line":
+//                            System.out.println("Line");
+//                            createLine.Create(frame,rand);
+//                            textBox.add((LineList.size()-1) + " Line");
+//                            break;
+//                        default:
+//                            System.out.println("Something");
+//                            break;
+//                    }
                 }
             }
         }
@@ -192,29 +210,6 @@ public class MainWindow {
         }
         ActionListener mt = new MoveToListener();
         MoveTo.addActionListener(mt);
-    }
-    public static int ComBoxHelper(String msg)
-    {
-        int message = 0;
-        switch (msg)
-        {
-            case "Circle":
-                System.out.println("Circle");
-                message = 0;
-                break;
-            case "Rectangle":
-                System.out.println("Rectangle");
-                message = 1;
-                break;
-            case "Line":
-                System.out.println("Line");
-                message = 2;
-                break;
-            default:
-                System.out.println("Something");
-                break;
-        }
-        return message;
     }
 
     public static ArrayList<Circle> getCircleList(){
