@@ -4,6 +4,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 public class MainWindow {
     private static Configurations config = new Configurations();
@@ -15,6 +17,7 @@ public class MainWindow {
     private static ArrayList<Line> LineList =  new ArrayList<>();
     private static int LUCK = 0;
     private static ArrayList<String> textBox = new ArrayList<>();
+    private static int SELECTED_INDEX;
     public static void main(String[] args)
     {
         config.setVisible(false);
@@ -39,10 +42,18 @@ public class MainWindow {
         panel.add(DeleteTheLast);
         JComboBox shapeBox = new JComboBox(BOX_COLLECTION);
         JComboBox Change = new JComboBox();
+        JList<String> list = new JList<>();
+        panel.add(list);
         panel.add(Change);
         shapeBox.setSelectedItem(0);
         panel.add(shapeBox);
 
+        class ListListener implements ListSelectionListener {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+
+            }
+        }
         class ChangeBtnListener implements ActionListener{
             @Override
             public void actionPerformed(ActionEvent event) {
@@ -118,18 +129,19 @@ public class MainWindow {
         ActionListener deleteBtnListener = new DeleteButtonListener();
         DeleteTheLast.addActionListener(deleteBtnListener);
 
-        class RectangleButtonListener implements ActionListener
+        class CreateListener implements ActionListener
         {
             public void actionPerformed(ActionEvent event)
             {
                 Change.addItem(textBox.get(textBox.size()-1));
+
                 frame.revalidate();
                 frame.repaint();
             }
         }
 
-        ActionListener rectButtonListener = new RectangleButtonListener();
-        CreateButton.addActionListener(rectButtonListener);
+        ActionListener createListener = new CreateListener();
+        CreateButton.addActionListener(createListener);
 
         class ShapeBoxListener implements ActionListener
         {
@@ -139,6 +151,7 @@ public class MainWindow {
                 {
                     JComboBox cb = (JComboBox)event.getSource();
                     String msg = (String)cb.getSelectedItem();
+                    int message = cb.getSelectedIndex();
                     switch (msg)
                     {
                         case "Circle":
@@ -179,6 +192,29 @@ public class MainWindow {
         }
         ActionListener mt = new MoveToListener();
         MoveTo.addActionListener(mt);
+    }
+    public static int ComBoxHelper(String msg)
+    {
+        int message = 0;
+        switch (msg)
+        {
+            case "Circle":
+                System.out.println("Circle");
+                message = 0;
+                break;
+            case "Rectangle":
+                System.out.println("Rectangle");
+                message = 1;
+                break;
+            case "Line":
+                System.out.println("Line");
+                message = 2;
+                break;
+            default:
+                System.out.println("Something");
+                break;
+        }
+        return message;
     }
 
     public static ArrayList<Circle> getCircleList(){

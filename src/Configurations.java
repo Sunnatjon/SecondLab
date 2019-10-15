@@ -33,6 +33,7 @@ public class Configurations extends JFrame {
         JButton Remove = new JButton("Remove");
         JButton setVisibility = new JButton("Set invisible");
         JSlider slider = new JSlider(JSlider.HORIZONTAL, MIN, MAX, INIT);
+
         slider.setMajorTickSpacing(10);
         slider.setMinorTickSpacing(1);
         p.add(MoveTo);
