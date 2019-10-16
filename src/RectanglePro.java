@@ -47,16 +47,18 @@ public class RectanglePro extends JComponent{
         sampleR.setY(sampleR.getY());
         frame.add(sampleR);
     }
-    public int Remove(JFrame frame){
+    public int Remove(JFrame frame, int index){
         int luck = 1;
-        iterR = MainWindow.getRectList().iterator();
+        ArrayList<RectanglePro> ar = MainWindow.getRectList();
+        iterR = ar.iterator();
         if (iterR.hasNext()){
-            frame.remove(MainWindow.getRectList().get(0));
-            MainWindow.getRectList().remove(0);
-            for (int i = 0; i < MainWindow.getRectList().size(); i++) {
-                RectanglePro r = MainWindow.getRectList().get(i);
-                frame.add(r);
-            }
+            frame.remove(ar.get(index));
+//            ar.remove(index);
+//            for (int i = 0; i < ar.size(); i++) {
+//                RectanglePro r = ar.get(i);
+//                frame.add(r);
+//            }
+//            MainWindow.setRectList(ar);
         }else {
             luck = 0;
         }

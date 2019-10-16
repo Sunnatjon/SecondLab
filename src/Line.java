@@ -47,17 +47,19 @@ public class Line extends JComponent{
         sampleL.setY(sampleL.getY());
         frame.add(sampleL);
     }
-    public int Remove(JFrame frame){
+    public int Remove(JFrame frame,int index){
         int luck = 1;
-        iterL = MainWindow.getLineList().iterator();
+        ArrayList<Line> al = MainWindow.getLineList();
+        iterL = al.iterator();
         if (iterL.hasNext())
         {
-            frame.remove(MainWindow.getLineList().get(0));
-            MainWindow.getLineList().remove(0);
-            for (int i = 0; i < MainWindow.getLineList().size(); i++) {
-                Line l = MainWindow.getLineList().get(i);
-                frame.add(l);
-            }
+            frame.remove(al.get(index));
+//            al.remove(index);
+//            for (int i = 0; i < al.size(); i++) {
+//                Line l = al.get(i);
+//                frame.add(l);
+//            }
+//            MainWindow.setLineList(al);
         }else {
             luck = 0;
         }

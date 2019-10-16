@@ -28,8 +28,8 @@ public class Circle extends JComponent {
     public void Create(JFrame frame, Random rand)
     {
         ArrayList<Circle> CircleList = MainWindow.getCircleList();
-        int coordXC = rand.nextInt(400)+1;
-        int coordYC = rand.nextInt(200)+1;
+        int coordXC = rand.nextInt(400)+20;
+        int coordYC = rand.nextInt(200)+20;
         Circle printCircle = new Circle(coordXC, coordYC,70,70);
         frame.add(printCircle);
         CircleList.add(printCircle);
@@ -49,16 +49,18 @@ public class Circle extends JComponent {
         frame.add(sampleC);
     }
 
-    public int Remove(JFrame frame){
+    public int Remove(JFrame frame, int index){
         int luck = 1;
-        iterC = MainWindow.getCircleList().iterator();
+        ArrayList<Circle> ac = MainWindow.getCircleList();
+        iterC = ac.iterator();
         if (iterC.hasNext()){
-            frame.remove(MainWindow.getCircleList().get(0));
-            MainWindow.getCircleList().remove(0);
-            for (int i = 0; i < MainWindow.getCircleList().size(); i++) {
-                Circle c = MainWindow.getCircleList().get(i);
-                frame.add(c);
-            }
+            frame.remove(ac.get(index));
+//            ac.remove(index);
+//            for (int i = 0; i < ac.size(); i++) {
+//                Circle c = ac.get(i);
+//                frame.add(c);
+//            }
+//            MainWindow.setCircleList(ac);
         }else {
             luck = 0;
         }

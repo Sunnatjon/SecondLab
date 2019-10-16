@@ -8,21 +8,20 @@ import java.util.Iterator;
 
 public class Configurations extends JFrame {
     private JFrame frame = new JFrame();
-    private int index = 0;
+    private int index = 0,selectedIndex;
     private String indicator = "";
     private Iterator<Circle>iter;
-    private JComboBox Change;
     private boolean visible;
     private int MIN = 10,MAX = 200,INIT = 70;
     public Configurations(){
 
     }
-    public Configurations(JFrame frame,int index,String indicator,JComboBox Change)
+    public Configurations(JFrame frame,int index,int selectedIndex,String indicator, DefaultListModel<String> model)
     {
         this.indicator = indicator;
         this.frame = frame;
         this.index = index;
-        this.Change = Change;
+        this.selectedIndex = selectedIndex;
         setLayout(new BorderLayout());
         setSize(700,100);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -97,24 +96,25 @@ public class Configurations extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 switch (indicator){
                     case "Circle":
-                        MainWindow.getCircleList().get(index).Remove(frame);
-                        Change.removeItemAt(index);
+                        MainWindow.getCircleList().get(index).Remove(frame,index);
+                        model.remove(selectedIndex);
                         break;
                     case "Rectangle":
-                        MainWindow.getRectList().get(index).Remove(frame);
-                        Change.removeItemAt(index);
+                        MainWindow.getRectList().get(index).Remove(frame,index);
+                        model.remove(selectedIndex);
                         break;
                     case "Line":
-                        MainWindow.getLineList().get(index).Remove(frame);
-                        Change.removeItemAt(index);
+                        MainWindow.getLineList().get(index).Remove(frame,index);
+                        model.remove(selectedIndex);
                         break;
                     default:
-                        MainWindow.getLineList().get(index).Remove(frame);
+                        MainWindow.getLineList().get(index).Remove(frame,index);
+                        model.remove(selectedIndex);
+                        break;
                 }
-                dispose();
                 frame.revalidate();
                 frame.repaint();
-                //dispose();
+                dispose();
             }
         }
         ActionListener removeListener = new RemoveListener();
