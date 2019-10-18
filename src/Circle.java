@@ -55,12 +55,6 @@ public class Circle extends JComponent {
         iterC = ac.iterator();
         if (iterC.hasNext()){
             frame.remove(ac.get(index));
-//            ac.remove(index);
-//            for (int i = 0; i < ac.size(); i++) {
-//                Circle c = ac.get(i);
-//                frame.add(c);
-//            }
-//            MainWindow.setCircleList(ac);
         }else {
             luck = 0;
         }

@@ -8,14 +8,13 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 public class MainWindow {
-    private static Configurations config;
+//    private static Configurations config;
     private static Circle createCircle = new Circle();
     private static RectanglePro createRec = new RectanglePro();
     private static Line createLine = new Line();
     private static ArrayList<Circle> CircleList = new ArrayList<>();
     private static ArrayList<RectanglePro> RectList =  new ArrayList<>();
     private static ArrayList<Line> LineList =  new ArrayList<>();
-    private static int LUCK = 0;
     private static ArrayList<String> textBox = new ArrayList<>();
     private static int SELECTED_INDEX,indexC = 0,indexR = 0,indexL = 0;
     public static void main(String[] args)
@@ -36,17 +35,11 @@ public class MainWindow {
         frame.add(panel,BorderLayout.NORTH);
         frame.add(panel2,BorderLayout.WEST);
         JButton CreateButton = new JButton("Create");
-        JButton MoveTo = new JButton("MoveTo");
-        JButton DeleteTheLast = new JButton("Delete");
         panel.add(CreateButton);
-        panel.add(MoveTo);
-        panel.add(DeleteTheLast);
         JComboBox shapeBox = new JComboBox(BOX_COLLECTION);
-        JComboBox Change = new JComboBox();
         DefaultListModel<String> model = new DefaultListModel<>();
         JList<String> list = new JList<>(model);
         panel2.add(list);
-        panel.add(Change);
         shapeBox.setSelectedItem(0);
         panel.add(shapeBox);
 
@@ -58,7 +51,7 @@ public class MainWindow {
                 for (int i = 0; i < 20; i++){
                     if (msg.equals("Circle - "+ i)){
                         String indicator = "Circle";
-                        config = new Configurations(frame,i,selectedIndex,indicator,model);
+                        new Configurations(frame,i,selectedIndex,indicator,model).setVisible(true);
                         frame.revalidate();
                         frame.repaint();
                         break;
@@ -67,7 +60,7 @@ public class MainWindow {
                 for (int i = 0; i < 20; i++){
                     if (msg.equals("Rectangle - "+ i)){
                         String indicator = "Rectangle";
-                        config = new Configurations(frame,i,selectedIndex,indicator,model);
+                        new Configurations(frame,i,selectedIndex,indicator,model).setVisible(true);
                         frame.revalidate();
                         frame.repaint();
                         break;
@@ -76,7 +69,7 @@ public class MainWindow {
                 for (int i = 0; i < 20; i++){
                     if (msg.equals("Line - "+ i)){
                         String indicator = "Line";
-                        config = new Configurations(frame,i,selectedIndex,indicator,model);
+                        new Configurations(frame,i,selectedIndex,indicator,model).setVisible(true);
                         frame.revalidate();
                         frame.repaint();
                         break;
@@ -84,43 +77,9 @@ public class MainWindow {
                 }
             }
         }
+
         ListSelectionListener listSelectionListener = new ListListener();
         list.addListSelectionListener(listSelectionListener);
-
-//        class DeleteButtonListener implements ActionListener
-//        {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                int Ctrue = 1,Rtrue = 1,Ltrue = 1;
-//                switch (LUCK) {
-//                    case 0:
-//                        Ctrue = createCircle.Remove(frame, indexC);
-//                        break;
-//                    case 1:
-//                        Ltrue = createLine.Remove(frame, indexR);
-//                        break;
-//                    case 2:
-//                        Rtrue = createRec.Remove(frame, indexL);
-//                        break;
-//                    default:
-//                        createLine.Remove(frame, indexC);
-//                        break;
-//                }
-//                if (Ctrue == 0){
-//                    LUCK = 1;
-//                }
-//                if (Ltrue == 0){
-//                    LUCK = 2;
-//                }
-//                if (Rtrue == 0){
-//                    LUCK = 0;
-//                }
-//                frame.revalidate();
-//                frame.repaint();
-//            }
-//        }
-//        ActionListener deleteBtnListener = new DeleteButtonListener();
-//        DeleteTheLast.addActionListener(deleteBtnListener);
 
         class CreateListener implements ActionListener
         {
@@ -130,20 +89,17 @@ public class MainWindow {
                     case 0:
                         createCircle.Create(frame,rand);
                         model.addElement("Circle - "+ (CircleList.size()-1));
-                        indexC++;
                         break;
                     case 1:
                         createRec.Create(frame,rand);
                         model.addElement("Rectangle - "+ (RectList.size()-1));
-                        indexR++;
                         break;
                     case 2:
                         createLine.Create(frame,rand);
                         model.addElement("Line - "+ (LineList.size()-1));
-                        indexL++;
                         break;
                     default:
-                        model.addElement("Line - "+ indexL);
+                        model.addElement("Line - "+ (LineList.size()-1));
                         break;
                 }
                 frame.revalidate();
@@ -168,19 +124,6 @@ public class MainWindow {
         ActionListener sbl = new ShapeBoxListener();
         shapeBox.addActionListener(sbl);
         frame.setVisible(true);
-        class MoveToListener implements ActionListener
-        {
-            @Override
-            public void actionPerformed(ActionEvent event) {
-                createCircle.MoveTo(frame,0);
-                createRec.MoveTo(frame,0);
-                createLine.MoveTo(frame,0);
-                frame.revalidate();
-                frame.repaint();
-            }
-        }
-        ActionListener mt = new MoveToListener();
-        MoveTo.addActionListener(mt);
     }
 
     public static ArrayList<Circle> getCircleList(){
@@ -199,6 +142,7 @@ public class MainWindow {
     public static ArrayList<Line> getLineList(){
         return LineList;
     }
+
     public static void setLineList(ArrayList<Line> lineList) {
         LineList = lineList;
     }

@@ -53,12 +53,6 @@ public class RectanglePro extends JComponent{
         iterR = ar.iterator();
         if (iterR.hasNext()){
             frame.remove(ar.get(index));
-//            ar.remove(index);
-//            for (int i = 0; i < ar.size(); i++) {
-//                RectanglePro r = ar.get(i);
-//                frame.add(r);
-//            }
-//            MainWindow.setRectList(ar);
         }else {
             luck = 0;
         }

@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class Line extends JComponent{
     private int x,y,w = 60,h = 60;
-    private Color color;
+    private Color color = Color.ORANGE;
     Iterator<Line> iterL;
     public Line(int x, int y)
     {
@@ -54,12 +54,6 @@ public class Line extends JComponent{
         if (iterL.hasNext())
         {
             frame.remove(al.get(index));
-//            al.remove(index);
-//            for (int i = 0; i < al.size(); i++) {
-//                Line l = al.get(i);
-//                frame.add(l);
-//            }
-//            MainWindow.setLineList(al);
         }else {
             luck = 0;
         }

@@ -27,12 +27,11 @@ public class Configurations extends JFrame {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         JPanel p = new JPanel();
         add(p,BorderLayout.NORTH);
-        setVisible(true);
+//        setVisible(true);
         JButton MoveTo = new JButton("Move");
         JButton Remove = new JButton("Remove");
         JButton setVisibility = new JButton("Set invisible");
         JSlider slider = new JSlider(JSlider.HORIZONTAL, MIN, MAX, INIT);
-
         slider.setMajorTickSpacing(10);
         slider.setMinorTickSpacing(1);
         p.add(MoveTo);
