@@ -8,10 +8,12 @@ public class Line extends JComponent{
     private int x,y,w = 60,h = 60;
     private Color color = Color.ORANGE;
     Iterator<Line> iterL;
-    public Line(int x, int y)
+    public Line(int x, int y,int w, int h)
     {
         this.x = x;
         this.y = y;
+        this.w = w;
+        this.h = h;
     }
     public Line(){}
     @Override
@@ -28,11 +30,27 @@ public class Line extends JComponent{
         ArrayList<Line>LineList = MainWindow.getLineList();
         int widthC = rand.nextInt(400)+1;
         int heightC = rand.nextInt(200)+1;
-        Line printLine = new Line(widthC, heightC);
+        int XL = 60;
+        int YL = 60;
+        Line printLine = new Line(widthC, heightC,widthC+XL,heightC+YL);
         LineList.add(printLine);
         frame.add(printLine);
         MainWindow.setLineList(LineList);
     }
+
+    public void Create(JFrame frame, int X,int Y,int S)
+    {
+        ArrayList<Line>LineList = MainWindow.getLineList();
+        int widthC = X;
+        int heightC = Y;
+        int XL = S;
+        int YL = S;
+        Line printLine = new Line(widthC, heightC,widthC+XL,heightC+YL);
+        LineList.add(printLine);
+        frame.add(printLine);
+        MainWindow.setLineList(LineList);
+    }
+
     public void MoveTo(JFrame frame,int index)
     {
         int dx = 20;

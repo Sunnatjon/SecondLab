@@ -35,6 +35,18 @@ public class Circle extends JComponent {
         CircleList.add(printCircle);
         MainWindow.setCircleList(CircleList);
     }
+
+    public void Create(JFrame frame,int X, int Y, int S){
+        ArrayList<Circle> CircleList = MainWindow.getCircleList();
+        int coordXC = X;
+        int coordYC = Y;
+        Circle printCircle = new Circle(coordXC, coordYC,S,S);
+        frame.add(printCircle);
+        CircleList.add(printCircle);
+        MainWindow.setCircleList(CircleList);
+        System.out.println("circle size - "+CircleList.size());
+    }
+
     public void MoveTo(JFrame frame, int index)
     {
         int dx = 20;

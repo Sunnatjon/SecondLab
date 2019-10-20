@@ -8,10 +8,12 @@ public class RectanglePro extends JComponent{
         private int x,y,w = 70,h = 70;
         private Color color = Color.BLACK;
         Iterator<RectanglePro> iterR;
-        public RectanglePro(int x, int y)
+        public RectanglePro(int x, int y,int w,int h)
         {
             this.x = x;
             this.y = y;
+            this.w = w;
+            this.h = h;
         }
         public RectanglePro(){}
         @Override
@@ -26,13 +28,28 @@ public class RectanglePro extends JComponent{
         public void Create(JFrame frame, Random rand)
         {
             ArrayList<RectanglePro>RectList = MainWindow.getRectList();
-            int widthC = rand.nextInt(400)+1;
-            int heightC = rand.nextInt(200)+1;
-            RectanglePro printRectangle = new RectanglePro(widthC, heightC);
+            int widthC = 70;
+            int heightC = 70;
+            int XR = rand.nextInt(400)+1;
+            int YR = rand.nextInt(200)+1;
+            RectanglePro printRectangle = new RectanglePro(XR,YR,widthC, heightC);
             RectList.add(printRectangle);
             frame.add(printRectangle);
             MainWindow.setRectList(RectList);
         }
+
+    public void Create(JFrame frame, int X,int Y, int S)
+    {
+        ArrayList<RectanglePro>RectList = MainWindow.getRectList();
+        int XR = X;
+        int YR = Y;
+        int widthC = S;
+        int heightC = S;
+        RectanglePro printRectangle = new RectanglePro(XR,YR,widthC, heightC);
+        RectList.add(printRectangle);
+        frame.add(printRectangle);
+        MainWindow.setRectList(RectList);
+    }
     public void MoveTo(JFrame frame,int index)
     {
         int dx = 20;

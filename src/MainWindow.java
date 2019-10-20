@@ -8,7 +8,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 public class MainWindow {
-//    private static Configurations config;
     private static Circle createCircle = new Circle();
     private static RectanglePro createRec = new RectanglePro();
     private static Line createLine = new Line();
@@ -35,7 +34,9 @@ public class MainWindow {
         frame.add(panel,BorderLayout.NORTH);
         frame.add(panel2,BorderLayout.WEST);
         JButton CreateButton = new JButton("Create");
+        JButton CustomCreate = new JButton("Custom create");
         panel.add(CreateButton);
+        panel.add(CustomCreate);
         JComboBox shapeBox = new JComboBox(BOX_COLLECTION);
         DefaultListModel<String> model = new DefaultListModel<>();
         JList<String> list = new JList<>(model);
@@ -106,9 +107,37 @@ public class MainWindow {
                 frame.repaint();
             }
         }
-
         ActionListener createListener = new CreateListener();
         CreateButton.addActionListener(createListener);
+
+        class CustomCreateListener implements ActionListener{
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String indicator;
+                switch (SELECTED_INDEX){
+                    case 0:
+                        indicator = "Circle";
+                        new CustomCreateWindow(indicator,frame,model).setVisible(true);
+                        break;
+                    case 1:
+                        indicator = "Rectangle";
+                        new CustomCreateWindow(indicator,frame,model).setVisible(true);
+                        break;
+                    case 2:
+                        indicator = "Line";
+                        new CustomCreateWindow(indicator,frame,model).setVisible(true);
+                        break;
+                    default:
+                        indicator = "Line";
+                        new CustomCreateWindow(indicator,frame,model).setVisible(true);
+                        break;
+                }
+                frame.revalidate();
+                frame.repaint();
+            }
+        }
+        ActionListener customCreateListener = new CustomCreateListener();
+        CustomCreate.addActionListener(customCreateListener);
 
         class ShapeBoxListener implements ActionListener
         {
@@ -138,7 +167,17 @@ public class MainWindow {
     public static void setRectList(ArrayList<RectanglePro> rectList) {
         RectList = rectList;
     }
+    public static Circle getCreateCircle() {
+        return createCircle;
+    }
 
+    public static Line getCreateLine() {
+        return createLine;
+    }
+
+    public static RectanglePro getCreateRec() {
+        return createRec;
+    }
     public static ArrayList<Line> getLineList(){
         return LineList;
     }
